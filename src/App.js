@@ -1,47 +1,25 @@
+/* 7 - Access Nested Data
+In order to access nested values/components in a component we can use props.children
+
+Allows text values as well as the nested component to flow through into the html
+*/
+
+
 import React from 'react';
 
 class App extends React.Component {
-	// Gives 'this' the context within the component rather than parent class
-	constructor(){
-		super();
-		this.state = {
-			txt: 'this is the state txt',
-			cat: 0
-		}
-	}
-
-	//custom method
-	update ( e ) {
-		this.setState({txt: e.target.value})
-	}
-
 	render() {
-		// {} interpolates the state objects value
-		// Component updates
-		  return (
-		    <div>
-		      <h1>{this.state.txt} - {this.state.cat}</h1>
-		      <Widget update = {this.update.bind(this)} />
-		    </div>
-		)
+		return <Button>I <Heart /> React</Button>
 	}
 }
 
-//Stateless component
-// Child Component Updates the state of the parent component
-const Widget = (props) =>
-<input type="text" onChange={props.update}/>
+// Gets inner HTML from component to pass through
+const Button = (props) => <button>{props.children}</button>
 
-export default App;
+class Heart extends React.Component {
+	render() {
+		return <span>&hearts;</span>
+	}
+}
 
-/* Props
-A collection of values that are passed in as static values
-
-State
-A collection of values that are managed and updated by the components
-
-6 - Components as Children For Other Components
-	A components can render other components
-
-*/
-
+export default App
