@@ -1,7 +1,12 @@
-/* 7 - Access Nested Data
-In order to access nested values/components in a component we can use props.children
+/* 8 - Add Custom Validation propType
 
-Allows text values as well as the nested component to flow through into the html
+Built in Validation limited
+e.g. React.PropTypes.string.isRequired
+
+Custom Function More Powerful
+
+
+
 */
 
 
@@ -9,17 +14,25 @@ import React from 'react';
 
 class App extends React.Component {
 	render() {
-		return <Button>I <Heart /> React</Button>
+		return <Title text="The"/>
 	}
 }
 
-// Gets inner HTML from component to pass through
-const Button = (props) => <button>{props.children}</button>
+const Title = (props) => <h1>Title: {props.text}</h1>
 
-class Heart extends React.Component {
-	render() {
-		return <span>&hearts;</span>
+// Custom Function
+Title.propTypes = {
+	text(props, propName, component){
+		//isRequired
+		if(!(propName in props)) {
+			return new Error(`missing ${propName}`)
+		}
+		//length check
+		if(props[propName].length < 6) {
+			return new Error (`${propName} was too short`)
+		}
 	}
 }
+
 
 export default App
